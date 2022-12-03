@@ -1,5 +1,5 @@
 jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
-
+    var j = jQuery.noConflict();
     jQuery( '#demo_content .button' ).on('click', function( evt ) {
         var currentButton = jQuery( this );
         var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery( this ).data( 'action' ), 'nonce': shapelyCompanion.nonce };
@@ -26,7 +26,7 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
 
 });
 
-jQuery(function( $ ) {
+jQuery(function( j ) {
     var mediaControl = {
 
         // Initializes a new media manager or returns an existing frame.
@@ -57,8 +57,8 @@ jQuery(function( $ ) {
         select: function() {
 
             // Do something when the "update" button is clicked after a selection is made.
-            var id = $( '.attachments' ).find( '.selected' ).attr( 'data-id' );
-            var selector = $( '.shapely-media-control' ).find( mediaControl.selector );
+            var id = j( '.attachments' ).find( '.selected' ).attr( 'data-id' );
+            var selector = j( '.shapely-media-control' ).find( mediaControl.selector );
             var data = {
                 action: 'shapely_get_attachment_media',
                 attachment_id: id
@@ -72,7 +72,7 @@ jQuery(function( $ ) {
             jQuery.post( shapelyCompanion.ajaxurl, data, function( response ) {
                 var ext = response.substr( ( response.lastIndexOf( '.' ) + 1 ) );
                 if ( 'mp4' !== ext ) {
-                    $( mediaControl.container ).find( 'img' ).attr( 'src', response );
+                    j( mediaControl.container ).find( 'img' ).attr( 'src', response );
                 }
 
                 selector.val( response ).trigger('change');
@@ -82,13 +82,13 @@ jQuery(function( $ ) {
         },
 
         init: function() {
-            var context = $( '#wpbody, .wp-customizer' );
+            var context = j( '#wpbody, .wp-customizer' );
             context.on( 'click', '.shapely-media-control > .upload-button', function( e ) {
-                var container = $( this ).parent(),
+                var container = j( this ).parent(),
                     sibling = container.find( '.image-id' ),
                     id = sibling.attr( 'id' );
                 e.preventDefault();
-                mediaControl.size = $( '[data-delegate="' + id + '"]' ).val();
+                mediaControl.size = j( '[data-delegate="' + id + '"]' ).val();
                 mediaControl.container = container;
                 mediaControl.selector = '#' + id;
                 mediaControl.frame().open();
@@ -96,7 +96,7 @@ jQuery(function( $ ) {
             });
 
             context.on( 'click', '.shapely-media-control > .remove-button', function( e ) {
-                var container = $( this ).parent(),
+                var container = j( this ).parent(),
                     sibling = container.find( '.image-id' ),
                     img = container.find( 'img' );
                 e.preventDefault();
